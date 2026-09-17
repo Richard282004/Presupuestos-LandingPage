@@ -93,7 +93,7 @@ export default function App() {
 
       <main className="mx-auto max-w-6xl px-4 py-6">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[380px_1fr]">
-          <div className="no-print space-y-4">
+          <div className="no-print space-y-4 lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:overflow-y-auto lg:pr-2">
             {showHistory && (
               <HistoryPanel
                 history={history}
