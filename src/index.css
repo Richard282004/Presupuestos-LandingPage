@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root {
+  --accent: #0f766e;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background: #f7f6f3;
+  color: #1c1c1e;
+}
+
+/* Print: only the budget document is shown, at letter size */
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-area {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  @page {
+    size: letter;
+    margin: 12mm;
+  }
+}
