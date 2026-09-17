@@ -6,9 +6,9 @@ export default function BudgetPreview({ business, budget, totals }) {
   const accent = business.accentColor || '#0f766e'
 
   return (
-    <div className="print-area mx-auto w-full max-w-[820px] bg-white p-10 shadow-sm ring-1 ring-gray-200 print:ring-0">
+    <div className="print-area mx-auto w-full max-w-[820px] bg-white p-5 shadow-sm ring-1 ring-gray-200 sm:p-10 print:p-10 print:ring-0">
       {/* Header */}
-      <div className="flex items-start justify-between gap-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between print:flex-row print:items-start print:justify-between">
         <div className="flex items-center gap-3">
           {business.logo ? (
             <img src={business.logo} alt="Logo" className="h-14 max-w-[140px] object-contain" />
@@ -25,8 +25,8 @@ export default function BudgetPreview({ business, budget, totals }) {
           </div>
         </div>
 
-        <div className="text-right">
-          <div className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">
+        <div className="sm:text-right print:text-right">
+          <div className="text-2xl font-extrabold uppercase tracking-tight text-gray-900 sm:text-3xl print:text-3xl">
             Presupuesto
           </div>
           <div className="mt-1 text-xs text-gray-500">
@@ -36,7 +36,7 @@ export default function BudgetPreview({ business, budget, totals }) {
       </div>
 
       {/* Client / job block */}
-      <div className="mt-8 grid grid-cols-2 gap-6 border-t border-gray-200 pt-4">
+      <div className="mt-8 grid grid-cols-1 gap-4 border-t border-gray-200 pt-4 sm:grid-cols-2 sm:gap-6 print:grid-cols-2 print:gap-6">
         <div>
           <div className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
             Presupuesto para
@@ -59,34 +59,34 @@ export default function BudgetPreview({ business, budget, totals }) {
       </div>
 
       {/* Items table */}
-      <table className="mt-8 w-full">
+      <table className="mt-8 w-full table-fixed sm:table-auto print:table-auto">
         <thead>
           <tr
             className="border-b-2 text-left text-[11px] font-medium uppercase tracking-wide text-gray-400"
             style={{ borderColor: accent }}
           >
-            <th className="w-8 pb-2">N°</th>
+            <th className="w-5 pb-2 sm:w-8 print:w-8">N°</th>
             <th className="pb-2">Descripción</th>
-            <th className="w-20 pb-2 text-right">Cant.</th>
-            <th className="w-24 pb-2 text-right">Precio</th>
-            <th className="w-28 pb-2 text-right">Total</th>
+            <th className="w-8 pb-2 text-right sm:w-20 print:w-20">Cant.</th>
+            <th className="w-20 pb-2 text-right sm:w-24 print:w-24">Precio</th>
+            <th className="w-20 pb-2 text-right sm:w-28 print:w-28">Total</th>
           </tr>
         </thead>
         <tbody>
           {budget.items.map((item, index) => (
             <tr key={item.id} className="border-b border-gray-100 align-top">
-              <td className="py-2 text-sm text-gray-400">{index + 1}</td>
-              <td className="py-2 text-sm">
+              <td className="py-2 text-xs text-gray-400 sm:text-sm print:text-sm">{index + 1}</td>
+              <td className="py-2 text-xs sm:text-sm print:text-sm">
                 <div className="font-medium text-gray-900">{item.description || '—'}</div>
-                {item.detail && <div className="text-xs text-gray-400">{item.detail}</div>}
+                {item.detail && <div className="text-[11px] text-gray-400">{item.detail}</div>}
               </td>
-              <td className="py-2 text-right text-sm tabular-nums text-gray-700">
+              <td className="py-2 text-right text-xs tabular-nums text-gray-700 sm:text-sm print:text-sm">
                 {Number(item.qty) || 0}
               </td>
-              <td className="py-2 text-right text-sm tabular-nums text-gray-700">
+              <td className="py-2 text-right text-xs tabular-nums text-gray-700 sm:text-sm print:text-sm">
                 {formatCurrency(Number(item.price) || 0)}
               </td>
-              <td className="py-2 text-right text-sm font-medium tabular-nums text-gray-900">
+              <td className="py-2 text-right text-xs font-medium tabular-nums text-gray-900 sm:text-sm print:text-sm">
                 {formatCurrency(itemSubtotal(item))}
               </td>
             </tr>
@@ -95,16 +95,19 @@ export default function BudgetPreview({ business, budget, totals }) {
       </table>
 
       {/* Totals */}
-      <div className="mt-8 flex items-end justify-between border-t border-gray-200 pt-6">
+      <div className="mt-8 flex flex-col gap-4 border-t border-gray-200 pt-6 sm:flex-row sm:items-end sm:justify-between print:flex-row print:items-end print:justify-between">
         <div>
           <div className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
             Total
           </div>
-          <div className="text-4xl font-extrabold tabular-nums" style={{ color: accent }}>
+          <div
+            className="text-3xl font-extrabold tabular-nums sm:text-4xl print:text-4xl"
+            style={{ color: accent }}
+          >
             {formatCurrency(totals.total)}
           </div>
         </div>
-        <div className="text-right text-sm">
+        <div className="text-sm sm:text-right print:text-right">
           <div className="flex justify-between gap-6 text-gray-500">
             <span>Subtotal</span>
             <span className="tabular-nums">{formatCurrency(totals.subtotal)}</span>
@@ -123,8 +126,8 @@ export default function BudgetPreview({ business, budget, totals }) {
       </div>
 
       {/* Terms + signature */}
-      <div className="mt-10 grid grid-cols-3 gap-6 border-t border-gray-200 pt-6">
-        <div className="col-span-2">
+      <div className="mt-10 grid grid-cols-1 gap-6 border-t border-gray-200 pt-6 sm:grid-cols-3 print:grid-cols-3">
+        <div className="sm:col-span-2 print:col-span-2">
           <div className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
             Términos y condiciones
           </div>
@@ -140,13 +143,11 @@ export default function BudgetPreview({ business, budget, totals }) {
       </div>
 
       {/* Footer */}
-      <div className="mt-10 flex items-center justify-between border-t border-gray-200 pt-4 text-xs text-gray-500">
-        <div className="space-x-3">
-          {business.phone && <span>{business.phone}</span>}
-          {business.address && <span>{business.address}</span>}
-          {business.contact && <span>{business.contact}</span>}
-          {business.rut && <span>RUT {business.rut}</span>}
-        </div>
+      <div className="mt-10 flex flex-wrap gap-x-3 gap-y-1 border-t border-gray-200 pt-4 text-xs text-gray-500">
+        {business.phone && <span>{business.phone}</span>}
+        {business.address && <span>{business.address}</span>}
+        {business.contact && <span>{business.contact}</span>}
+        {business.rut && <span>RUT {business.rut}</span>}
       </div>
       <div className="mt-3 h-1.5 w-full" style={{ backgroundColor: accent }} />
     </div>

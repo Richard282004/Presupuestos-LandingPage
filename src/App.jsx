@@ -56,9 +56,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f7f6f3]">
       <header className="no-print border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-sm font-semibold text-gray-800">Generador de presupuestos</h1>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button
               type="button"
               onClick={() => setShowHistory((v) => !v)}
