@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { compressImage } from '../lib/image'
+import { cleanRUT, formatRUT } from '../lib/format'
 
 const field =
   'w-full rounded border border-gray-300 px-2.5 py-1.5 text-sm text-gray-900 focus:border-gray-500 focus:outline-none'
@@ -105,9 +106,10 @@ export default function BusinessForm({ business, onChange }) {
             type="text"
             inputMode="numeric"
             className={field}
-            value={business.rut}
-            onChange={(e) => set('rut', e.target.value)}
+            value={formatRUT(business.rut)}
+            onChange={(e) => set('rut', cleanRUT(e.target.value))}
             placeholder="12.345.678-9"
+            maxLength={12}
           />
         </div>
         <div className="col-span-2">

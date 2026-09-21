@@ -17,6 +17,22 @@ export function digitsOnly(value) {
   return String(value ?? '').replace(/\D/g, '')
 }
 
+export function cleanRUT(value) {
+  return String(value ?? '')
+    .replace(/[^0-9kK]/g, '')
+    .toUpperCase()
+}
+
+export function formatRUT(value) {
+  const clean = cleanRUT(value)
+  if (!clean) return ''
+  const body = clean.slice(0, -1)
+  const dv = clean.slice(-1)
+  if (!body) return dv
+  const withDots = body.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return `${withDots}-${dv}`
+}
+
 export function formatDate(isoDate) {
   if (!isoDate) return ''
   const [year, month, day] = isoDate.split('-')
