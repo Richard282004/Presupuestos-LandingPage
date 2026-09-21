@@ -3,8 +3,8 @@ import { formatCurrency, formatThousands, digitsOnly } from '../lib/format'
 import { itemSubtotal } from '../lib/totals'
 
 const field =
-  'w-full rounded border border-gray-300 px-2.5 py-1.5 text-sm text-gray-900 focus:border-gray-500 focus:outline-none'
-const label = 'block text-xs font-medium text-gray-500 mb-1'
+  'w-full min-h-12 rounded border border-gray-300 px-3 py-2.5 text-base text-gray-900 focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20'
+const label = 'block text-sm font-medium text-gray-700 mb-1.5'
 
 export default function BudgetForm({ budget, onChange }) {
   function set(key, value) {
@@ -32,16 +32,16 @@ export default function BudgetForm({ budget, onChange }) {
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-4">
-      <h2 className="mb-3 text-sm font-semibold text-gray-800">Presupuesto</h2>
+      <h2 className="mb-3 text-lg font-semibold text-gray-800">Datos del cliente</h2>
 
       <div className="mb-4 grid grid-cols-2 gap-3">
         <div>
-          <label className={label}>N° de presupuesto</label>
-          <input className={field} value={budget.number} readOnly />
+          <label className={label} htmlFor="budgetform-1">N° de presupuesto</label>
+          <input id="budgetform-1" className={field} value={budget.number} readOnly />
         </div>
         <div>
-          <label className={label}>Fecha</label>
-          <input
+          <label className={label} htmlFor="budgetform-2">Fecha</label>
+          <input id="budgetform-2"
             type="date"
             className={field}
             value={budget.date}
@@ -50,10 +50,10 @@ export default function BudgetForm({ budget, onChange }) {
         </div>
       </div>
 
-      <div className="mb-4 grid grid-cols-2 gap-3">
-        <div className="col-span-2">
-          <label className={label}>Nombre del cliente</label>
-          <input
+      <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="sm:col-span-2">
+          <label className={label} htmlFor="budgetform-3">Nombre del cliente</label>
+          <input id="budgetform-3"
             className={field}
             spellCheck="true"
             lang="es"
@@ -62,8 +62,8 @@ export default function BudgetForm({ budget, onChange }) {
           />
         </div>
         <div>
-          <label className={label}>Dirección del trabajo</label>
-          <input
+          <label className={label} htmlFor="budgetform-4">Dirección del trabajo</label>
+          <input id="budgetform-4"
             className={field}
             spellCheck="true"
             lang="es"
@@ -72,8 +72,8 @@ export default function BudgetForm({ budget, onChange }) {
           />
         </div>
         <div>
-          <label className={label}>Teléfono del cliente</label>
-          <input
+          <label className={label} htmlFor="budgetform-5">Teléfono del cliente</label>
+          <input id="budgetform-5"
             type="tel"
             inputMode="tel"
             className={field}
@@ -85,13 +85,13 @@ export default function BudgetForm({ budget, onChange }) {
 
       <div className="mb-3">
         <div className="mb-2 flex items-center justify-between">
-          <span className={label + ' mb-0'}>Ítems</span>
+          <span className={label + ' mb-0'}>Trabajos y materiales</span>
           <button
             type="button"
             onClick={addItem}
-            className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-50"
+            className="rounded border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
-            + Agregar ítem
+            Agregar trabajo
           </button>
         </div>
 
@@ -103,7 +103,8 @@ export default function BudgetForm({ budget, onChange }) {
                   className={field}
                   spellCheck="true"
                   lang="es"
-                  placeholder="Descripción"
+                  aria-label="Trabajo o material"
+                  placeholder="Trabajo o material"
                   value={item.description}
                   onChange={(e) => setItem(item.id, 'description', e.target.value)}
                 />
@@ -112,34 +113,38 @@ export default function BudgetForm({ budget, onChange }) {
                   onClick={() => removeItem(item.id)}
                   disabled={budget.items.length === 1}
                   className="shrink-0 rounded border border-gray-300 px-2 text-xs text-gray-500 hover:bg-gray-50 disabled:opacity-30"
-                  title="Eliminar ítem"
+                  title="Eliminar trabajo"
+                  aria-label="Eliminar trabajo"
                 >
-                  ✕
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
                 </button>
               </div>
               <input
                 className={field + ' mt-1.5'}
                 spellCheck="true"
                 lang="es"
+                aria-label="Detalle (opcional)"
                 placeholder="Detalle (opcional)"
                 value={item.detail}
                 onChange={(e) => setItem(item.id, 'detail', e.target.value)}
               />
-              <div className="mt-1.5 grid grid-cols-3 gap-2">
+              <div className="mt-3 grid grid-cols-2 gap-3">
                 <div>
-                  <label className={label + ' mb-0.5'}>Cantidad</label>
-                  <input
+                  <label className={label + ' mb-0.5'} htmlFor={"budgetform-6-" + item.id}>Cantidad</label>
+                  <input id={"budgetform-6-" + item.id}
                     type="text"
                     inputMode="numeric"
                     className={field}
                     placeholder="Cantidad"
                     value={item.qty === '' ? '' : String(item.qty)}
-                    onChange={(e) => setItem(item.id, 'qty', digitsOnly(e.target.value))}
+                    onChange={(e) => {
+                      if (/^\d*$/.test(e.target.value)) setItem(item.id, 'qty', e.target.value)
+                    }}
                   />
                 </div>
                 <div>
-                  <label className={label + ' mb-0.5'}>Precio</label>
-                  <input
+                  <label className={label + ' mb-0.5'} htmlFor={"budgetform-7-" + item.id}>Precio unitario</label>
+                  <input id={"budgetform-7-" + item.id}
                     type="text"
                     inputMode="decimal"
                     className={field}
@@ -148,8 +153,9 @@ export default function BudgetForm({ budget, onChange }) {
                     onChange={(e) => setItem(item.id, 'price', digitsOnly(e.target.value))}
                   />
                 </div>
-                <div className="flex items-end justify-end px-1 pb-1.5 text-sm text-gray-600">
-                  {formatCurrency(itemSubtotal(item))}
+                <div className="col-span-2 flex items-center justify-between text-sm text-gray-700">
+                  <span>Subtotal</span>
+                  <strong className="tabular-nums">{formatCurrency(itemSubtotal(item))}</strong>
                 </div>
               </div>
             </div>
@@ -157,9 +163,10 @@ export default function BudgetForm({ budget, onChange }) {
         </div>
       </div>
 
-      <label className="mb-3 flex items-center gap-2 text-sm text-gray-700">
+      <label className="mb-4 flex min-h-12 items-center gap-3 text-base text-gray-700">
         <input
           type="checkbox"
+          className="h-5 w-5 accent-teal-700"
           checked={budget.includeIVA}
           onChange={(e) => set('includeIVA', e.target.checked)}
         />
@@ -167,8 +174,8 @@ export default function BudgetForm({ budget, onChange }) {
       </label>
 
       <div>
-        <label className={label}>Notas / condiciones</label>
-        <textarea
+        <label className={label} htmlFor="budgetform-8">Notas / condiciones</label>
+        <textarea id="budgetform-8"
           className={field}
           spellCheck="true"
           lang="es"

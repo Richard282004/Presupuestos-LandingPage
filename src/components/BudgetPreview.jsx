@@ -59,7 +59,7 @@ export default function BudgetPreview({ business, budget, totals }) {
       </div>
 
       {/* Items table */}
-      <table className="mt-8 w-full table-fixed sm:table-auto print:table-auto">
+      <table className="mt-8 hidden w-full table-auto sm:table print:table">
         <thead>
           <tr
             className="border-b-2 text-left text-[11px] font-medium uppercase tracking-wide text-gray-400"
@@ -93,6 +93,19 @@ export default function BudgetPreview({ business, budget, totals }) {
           ))}
         </tbody>
       </table>
+
+      <div className="mt-6 divide-y divide-gray-200 sm:hidden print:hidden">
+        {budget.items.map((item, index) => (
+          <div key={item.id} className="py-3">
+            <div className="font-medium text-gray-900">{index + 1}. {item.description || 'Sin descripción'}</div>
+            {item.detail && <p className="mt-1 text-sm text-gray-600">{item.detail}</p>}
+            <div className="mt-2 flex flex-wrap justify-between gap-2 text-sm text-gray-700">
+              <span>{Number(item.qty) || 0} × {formatCurrency(Number(item.price) || 0)}</span>
+              <strong className="tabular-nums">{formatCurrency(itemSubtotal(item))}</strong>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Totals */}
       <div className="mt-8 flex flex-col gap-4 border-t border-gray-200 pt-6 sm:flex-row sm:items-end sm:justify-between print:flex-row print:items-end print:justify-between">

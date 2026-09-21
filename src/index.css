@@ -53,3 +53,37 @@ body {
     margin: 12mm;
   }
 }
+
+/* Comfortable controls without changing the printed document. */
+.no-print button {
+  min-height: 44px;
+  cursor: pointer;
+}
+.no-print button:disabled {
+  cursor: default;
+}
+button:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 3px;
+}
+input, textarea {
+  caret-color: #0f766e;
+}
+::selection {
+  background: #ccfbf1;
+  color: #134e4a;
+}
+.action-bar {
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+.print-area {
+  overflow-wrap: anywhere;
+}
+@media print {
+  .budget-preview {
+    display: block !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+}

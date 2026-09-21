@@ -18,8 +18,9 @@ function read(key, fallback) {
 function write(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value))
+    return true
   } catch {
-    // localStorage full or unavailable — ignore, data just won't persist
+    return false
   }
 }
 
@@ -39,7 +40,7 @@ export function loadBusiness() {
 }
 
 export function saveBusiness(business) {
-  write(KEYS.business, business)
+  return write(KEYS.business, business)
 }
 
 export function loadHistory() {
@@ -47,7 +48,7 @@ export function loadHistory() {
 }
 
 export function saveHistory(history) {
-  write(KEYS.history, history)
+  return write(KEYS.history, history)
 }
 
 export function loadDraft() {
@@ -55,7 +56,7 @@ export function loadDraft() {
 }
 
 export function saveDraft(draft) {
-  write(KEYS.draft, draft)
+  return write(KEYS.draft, draft)
 }
 
 // Reserves and returns the next sequential budget number for the given year,

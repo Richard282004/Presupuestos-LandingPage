@@ -4,7 +4,7 @@ export default function HistoryPanel({ history, onLoad, onDelete }) {
   if (history.length === 0) {
     return (
       <section className="rounded-lg border border-gray-200 bg-white p-4">
-        <h2 className="mb-2 text-sm font-semibold text-gray-800">Historial</h2>
+        <h2 className="mb-2 text-sm font-semibold text-gray-800">Mis presupuestos</h2>
         <p className="text-sm text-gray-400">Aún no hay presupuestos guardados.</p>
       </section>
     )
@@ -12,7 +12,7 @@ export default function HistoryPanel({ history, onLoad, onDelete }) {
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-4">
-      <h2 className="mb-3 text-sm font-semibold text-gray-800">Historial</h2>
+      <h2 className="mb-3 text-sm font-semibold text-gray-800">Mis presupuestos</h2>
       <div className="space-y-2">
         {history
           .slice()
@@ -20,7 +20,7 @@ export default function HistoryPanel({ history, onLoad, onDelete }) {
           .map((entry) => (
             <div
               key={entry.id}
-              className="flex items-center justify-between gap-2 rounded border border-gray-200 p-2"
+              className="flex flex-col gap-3 rounded border border-gray-200 p-2"
             >
               <div className="min-w-0">
                 <div className="truncate text-sm font-medium text-gray-900">
@@ -34,14 +34,14 @@ export default function HistoryPanel({ history, onLoad, onDelete }) {
                 <button
                   type="button"
                   onClick={() => onLoad(entry)}
-                  className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                  className="rounded border border-gray-300 px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
-                  Cargar
+                  Abrir
                 </button>
                 <button
                   type="button"
                   onClick={() => onDelete(entry.id)}
-                  className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-red-500 hover:bg-red-50"
+                  className="rounded border border-gray-300 px-2 py-1 text-sm font-medium text-red-500 hover:bg-red-50"
                 >
                   Eliminar
                 </button>
