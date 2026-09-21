@@ -108,7 +108,7 @@ export default function App() {
           </div>
         )}
         <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[400px_1fr]">
-          <div className={'no-print space-y-4 ' + (showPreview ? 'hidden lg:block' : '')}>
+          <div className={'no-print space-y-4 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto lg:pr-2 ' + (showPreview ? 'hidden lg:block' : '')}>
             <BusinessForm business={business} onChange={setBusiness} />
             <BudgetForm budget={budget} onChange={setBudget} />
           </div>
