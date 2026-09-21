@@ -31,6 +31,21 @@ body {
     margin: 0 !important;
     width: auto !important;
     max-width: none !important;
+    page-break-after: avoid;
+  }
+
+  .print-area table {
+    page-break-inside: auto;
+  }
+
+  .print-area tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .print-area > * {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   @page {

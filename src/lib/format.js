@@ -7,6 +7,16 @@ export function formatCurrency(value) {
   }).format(n)
 }
 
+export function formatThousands(value) {
+  const digits = String(value ?? '').replace(/\D/g, '')
+  if (!digits) return ''
+  return new Intl.NumberFormat('es-CL').format(Number(digits))
+}
+
+export function digitsOnly(value) {
+  return String(value ?? '').replace(/\D/g, '')
+}
+
 export function formatDate(isoDate) {
   if (!isoDate) return ''
   const [year, month, day] = isoDate.split('-')

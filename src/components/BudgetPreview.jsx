@@ -67,7 +67,7 @@ export default function BudgetPreview({ business, budget, totals }) {
           >
             <th className="w-5 pb-2 sm:w-8 print:w-8">N°</th>
             <th className="pb-2">Descripción</th>
-            <th className="w-8 pb-2 text-right sm:w-20 print:w-20">Cant.</th>
+            <th className="w-8 pb-2 text-right sm:w-20 print:w-20">Cantidad</th>
             <th className="w-20 pb-2 text-right sm:w-24 print:w-24">Precio</th>
             <th className="w-20 pb-2 text-right sm:w-28 print:w-28">Total</th>
           </tr>

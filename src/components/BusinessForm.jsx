@@ -70,6 +70,8 @@ export default function BusinessForm({ business, onChange }) {
           <label className={label}>Nombre del negocio</label>
           <input
             className={field}
+            spellCheck="true"
+            lang="es"
             value={business.name}
             onChange={(e) => set('name', e.target.value)}
             placeholder="Gasfitería Rodríguez"
@@ -79,6 +81,8 @@ export default function BusinessForm({ business, onChange }) {
           <label className={label}>Rubro / especialidad</label>
           <input
             className={field}
+            spellCheck="true"
+            lang="es"
             value={business.specialty}
             onChange={(e) => set('specialty', e.target.value)}
             placeholder="Gasfitería y electricidad"
@@ -87,6 +91,8 @@ export default function BusinessForm({ business, onChange }) {
         <div>
           <label className={label}>Teléfono</label>
           <input
+            type="tel"
+            inputMode="tel"
             className={field}
             value={business.phone}
             onChange={(e) => set('phone', e.target.value)}
@@ -96,6 +102,8 @@ export default function BusinessForm({ business, onChange }) {
         <div>
           <label className={label}>RUT (opcional)</label>
           <input
+            type="text"
+            inputMode="numeric"
             className={field}
             value={business.rut}
             onChange={(e) => set('rut', e.target.value)}
@@ -106,6 +114,8 @@ export default function BusinessForm({ business, onChange }) {
           <label className={label}>Dirección</label>
           <input
             className={field}
+            spellCheck="true"
+            lang="es"
             value={business.address}
             onChange={(e) => set('address', e.target.value)}
             placeholder="Av. Siempre Viva 123, Santiago"

@@ -1,5 +1,5 @@
 import { emptyItem } from '../lib/budget'
-import { formatCurrency } from '../lib/format'
+import { formatCurrency, formatThousands, digitsOnly } from '../lib/format'
 import { itemSubtotal } from '../lib/totals'
 
 const field =
@@ -55,6 +55,8 @@ export default function BudgetForm({ budget, onChange }) {
           <label className={label}>Nombre del cliente</label>
           <input
             className={field}
+            spellCheck="true"
+            lang="es"
             value={budget.client.name}
             onChange={(e) => setClient('name', e.target.value)}
           />
@@ -63,6 +65,8 @@ export default function BudgetForm({ budget, onChange }) {
           <label className={label}>Dirección del trabajo</label>
           <input
             className={field}
+            spellCheck="true"
+            lang="es"
             value={budget.client.address}
             onChange={(e) => setClient('address', e.target.value)}
           />
@@ -70,6 +74,8 @@ export default function BudgetForm({ budget, onChange }) {
         <div>
           <label className={label}>Teléfono del cliente</label>
           <input
+            type="tel"
+            inputMode="tel"
             className={field}
             value={budget.client.phone}
             onChange={(e) => setClient('phone', e.target.value)}
@@ -95,6 +101,8 @@ export default function BudgetForm({ budget, onChange }) {
               <div className="flex gap-2">
                 <input
                   className={field}
+                  spellCheck="true"
+                  lang="es"
                   placeholder="Descripción"
                   value={item.description}
                   onChange={(e) => setItem(item.id, 'description', e.target.value)}
@@ -111,30 +119,36 @@ export default function BudgetForm({ budget, onChange }) {
               </div>
               <input
                 className={field + ' mt-1.5'}
+                spellCheck="true"
+                lang="es"
                 placeholder="Detalle (opcional)"
                 value={item.detail}
                 onChange={(e) => setItem(item.id, 'detail', e.target.value)}
               />
               <div className="mt-1.5 grid grid-cols-3 gap-2">
-                <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  className={field}
-                  placeholder="Cantidad"
-                  value={item.qty}
-                  onChange={(e) => setItem(item.id, 'qty', e.target.value)}
-                />
-                <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  className={field}
-                  placeholder="Precio unitario"
-                  value={item.price}
-                  onChange={(e) => setItem(item.id, 'price', e.target.value)}
-                />
-                <div className="flex items-center justify-end px-1 text-sm text-gray-600">
+                <div>
+                  <label className={label + ' mb-0.5'}>Cantidad</label>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    className={field}
+                    placeholder="Cantidad"
+                    value={item.qty === '' ? '' : String(item.qty)}
+                    onChange={(e) => setItem(item.id, 'qty', digitsOnly(e.target.value))}
+                  />
+                </div>
+                <div>
+                  <label className={label + ' mb-0.5'}>Precio</label>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    className={field}
+                    placeholder="Precio unitario"
+                    value={formatThousands(item.price)}
+                    onChange={(e) => setItem(item.id, 'price', digitsOnly(e.target.value))}
+                  />
+                </div>
+                <div className="flex items-end justify-end px-1 pb-1.5 text-sm text-gray-600">
                   {formatCurrency(itemSubtotal(item))}
                 </div>
               </div>
@@ -156,6 +170,8 @@ export default function BudgetForm({ budget, onChange }) {
         <label className={label}>Notas / condiciones</label>
         <textarea
           className={field}
+          spellCheck="true"
+          lang="es"
           rows={3}
           placeholder="Validez de la oferta, forma de pago, garantía, etc."
           value={budget.notes}
