@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { compressImage } from '../lib/image'
-import { cleanRUT, formatRUT } from '../lib/format'
+import { cleanRUT, formatRUT, formatPhone } from '../lib/format'
 
 const field =
   'w-full min-h-12 rounded border border-gray-300 px-3 py-2.5 text-base text-gray-900 focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20'
@@ -106,6 +106,7 @@ export default function BusinessForm({ business, onChange }) {
             className={field}
             value={business.phone}
             onChange={(e) => set('phone', e.target.value)}
+            onBlur={(e) => set('phone', formatPhone(e.target.value))}
             placeholder="+56 9 1234 5678"
           />
         </div>

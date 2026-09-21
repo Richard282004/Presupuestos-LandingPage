@@ -1,5 +1,5 @@
 import PlaceholderMark from './PlaceholderMark'
-import { formatCurrency, formatDate } from '../lib/format'
+import { formatCurrency, formatDate, formatPhone, formatRUT } from '../lib/format'
 import { itemSubtotal } from '../lib/totals'
 
 export default function BudgetPreview({ business, budget, totals }) {
@@ -45,7 +45,7 @@ export default function BudgetPreview({ business, budget, totals }) {
             {budget.client.name || '—'}
           </div>
           {budget.client.phone && (
-            <div className="text-xs text-gray-500">{budget.client.phone}</div>
+            <div className="whitespace-pre-wrap text-xs text-gray-500">{formatPhone(budget.client.phone)}</div>
           )}
         </div>
         <div>
@@ -157,10 +157,10 @@ export default function BudgetPreview({ business, budget, totals }) {
 
       {/* Footer */}
       <div className="mt-10 flex flex-wrap gap-x-3 gap-y-1 border-t border-gray-200 pt-4 text-xs text-gray-500">
-        {business.phone && <span>{business.phone}</span>}
+        {business.phone && <span className="whitespace-pre-wrap">{formatPhone(business.phone)}</span>}
         {business.address && <span>{business.address}</span>}
         {business.contact && <span>{business.contact}</span>}
-        {business.rut && <span>RUT {business.rut}</span>}
+        {business.rut && <span className="whitespace-nowrap">RUT {formatRUT(business.rut)}</span>}
       </div>
       <div className="mt-3 h-1.5 w-full" style={{ backgroundColor: accent }} />
     </div>

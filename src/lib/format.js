@@ -17,6 +17,17 @@ export function digitsOnly(value) {
   return String(value ?? '').replace(/\D/g, '')
 }
 
+export function formatPhone(value) {
+  const phone = String(value ?? '').trim()
+  // Keep custom spacing; only format recognizable, unspaced Chilean mobiles.
+  if (/^9\d{8}$/.test(phone)) return `9 ${phone.slice(1)}`
+  if (/^\+?569\d{8}$/.test(phone)) {
+    const digits = phone.replace(/^\+/, '')
+    return `+56 9 ${digits.slice(3)}`
+  }
+  return phone
+}
+
 export function cleanRUT(value) {
   return String(value ?? '')
     .replace(/[^0-9kK]/g, '')

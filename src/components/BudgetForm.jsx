@@ -1,5 +1,5 @@
 import { emptyItem } from '../lib/budget'
-import { formatCurrency, formatThousands, digitsOnly } from '../lib/format'
+import { formatCurrency, formatThousands, digitsOnly, formatPhone } from '../lib/format'
 import { itemSubtotal } from '../lib/totals'
 
 const field =
@@ -79,6 +79,7 @@ export default function BudgetForm({ budget, onChange }) {
             className={field}
             value={budget.client.phone}
             onChange={(e) => setClient('phone', e.target.value)}
+            onBlur={(e) => setClient('phone', formatPhone(e.target.value))}
           />
         </div>
       </div>
